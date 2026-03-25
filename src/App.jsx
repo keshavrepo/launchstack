@@ -8,7 +8,7 @@ import About from "./About";
 import Privacy from "./Privacy";
 import Terms from "./Terms";
 import Security from "./Security";
-import ServicesPage from "./Services";
+import ServicesPage from "./services";
 import PricingPage from "./Pricing";
 import ProcessPage from "./Process";
 import ContactPage from "./Contact";
