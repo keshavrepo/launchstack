@@ -4,4 +4,26 @@
     <loc>https://launchstackweb.vercel.app/blog</loc>
     <priority>1.00</priority>
   </url>
+  <url>
+  <loc>https://launchstackweb.vercel.app</loc>
+</url>
+
+<url>
+  <loc>https://launchstackweb.vercel.app/blog/1</loc>
+</url>
+
+<url>
+  <loc>https://launchstackweb.vercel.app/blog/2</loc>
+</url>
+<url>
+  <loc>https://launchstackweb.vercel.app/contact</loc>
+</url>
+
+<url>
+  <loc>https://launchstackweb.vercel.app/pricing</loc>
+</url>
+
+<url>
+  <loc>https://launchstackweb.vercel.app/services</loc>
+</url>
 </urlset>
