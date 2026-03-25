@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion"; // eslint-disable-line no-unused-vars
 import emailjs from '@emailjs/browser';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Blog from "./blog";
 import SingleBlog from "./SingleBlog";
 import About from "./About";
@@ -740,9 +740,9 @@ const Footer = () => {
                 </div>
 
                 {items.map((item) => (
-                  <a
+                  <Link
                     key={item}
-                    href={routeMap[item] || "#"}
+                    to={routeMap[item] || "#"}
                     style={{
                       display: "block",
                       color: "var(--c-muted)",
@@ -755,7 +755,7 @@ const Footer = () => {
                     onMouseLeave={(e) => (e.target.style.color = "var(--c-muted)")}
                   >
                     {item}
-                  </a>
+                  </Link>
                 ))}
               </div>
             );
@@ -775,15 +775,27 @@ const Footer = () => {
               { name: "Email", link: "https://mail.google.com/mail/?view=cm&fs=1&to=launchstack.in@gmail.com&su=Project%20Inquiry" },
               { name: "Privacy", link: "/privacy" }
             ].map((s) => (
-              <a
-                key={s.name}
-                href={s.link}
-                style={{ color: "var(--c-muted)", textDecoration: "none", fontSize: 13 }}
-                onMouseEnter={(e) => (e.target.style.color = "white")}
-                onMouseLeave={(e) => (e.target.style.color = "var(--c-muted)")}
-              >
-                {s.name}
-              </a>
+              s.link.startsWith("/") ? (
+                <Link
+                  key={s.name}
+                  to={s.link}
+                  style={{ color: "var(--c-muted)", textDecoration: "none", fontSize: 13 }}
+                  onMouseEnter={(e) => (e.target.style.color = "white")}
+                  onMouseLeave={(e) => (e.target.style.color = "var(--c-muted)")}
+                >
+                  {s.name}
+                </Link>
+              ) : (
+                <a
+                  key={s.name}
+                  href={s.link}
+                  style={{ color: "var(--c-muted)", textDecoration: "none", fontSize: 13 }}
+                  onMouseEnter={(e) => (e.target.style.color = "white")}
+                  onMouseLeave={(e) => (e.target.style.color = "var(--c-muted)")}
+                >
+                  {s.name}
+                </a>
+              )
             ))}
           </div>
 
