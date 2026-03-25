@@ -1,6 +1,20 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import emailjs from '@emailjs/browser';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Blog from "./blog";
+import SingleBlog from "./SingleBlog";
+import About from "./About";
+import Privacy from "./Privacy";
+import Terms from "./Terms";
+import Security from "./Security";
+import ServicesPage from "./Services";
+import PricingPage from "./Pricing";
+import ProcessPage from "./Process";
+import ContactPage from "./Contact";
+import TestimonialsPage from "./Testimonials";
+
+
 // ── Fonts ──────────────────────────────────────────────────────────────────
 const FontLink = () => (
   <style>{`
@@ -186,6 +200,10 @@ const Hero = () => {
           We designe high-performance websites and apps that help your business grow faster
         </motion.p>
 
+        <p style={{ display: "none" }}>
+              Website development, app development, web developer in India, business website services.
+        </p>
+
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.65 }}
           style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
           <motion.a href="#pricing" whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(108,99,255,0.6)" }} whileTap={{ scale: 0.97 }}
@@ -209,9 +227,9 @@ const Hero = () => {
         </motion.div>
       </div>
     </section>
+    
   );
 };
-
 // ── Services ───────────────────────────────────────────────────────────────
 const services = [
   { icon: "🧠", title: "Website Development", desc: "modern fast and mobile responsive websites.", color: "#6c63ff" },
@@ -675,71 +693,148 @@ const Contact = () => {
 };
 
 // ── Footer ─────────────────────────────────────────────────────────────────
-const Footer = () => (
-  <footer style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "48px 24px 36px" }}>
-    <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 32, marginBottom: 48 }}>
-        <div>
-          <div style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 800, letterSpacing: "-0.5px", marginBottom: 12, display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ display: "inline-block", width: 24, height: 24, borderRadius: 7, background: "linear-gradient(135deg, #6c63ff, #00f5d4)" }} />
-            Launch<span style={{ color: "#6c63ff" }}>Stack</span>
+const Footer = () => {
+  return (
+    <footer style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "48px 24px 36px" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 32, marginBottom: 48 }}>
+
+          {/* LEFT */}
+          <div>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 800, letterSpacing: "-0.5px", marginBottom: 12, display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ display: "inline-block", width: 24, height: 24, borderRadius: 7, background: "linear-gradient(135deg, #6c63ff, #00f5d4)" }} />
+              Launch<span style={{ color: "#6c63ff" }}>Stack</span>
+            </div>
+
+            <p style={{ color: "var(--c-muted)", fontSize: 14, maxWidth: 260, lineHeight: 1.7 }}>
+              we build Modern & premium websites and mobile apps to help business grow faster.
+            </p>
           </div>
-          <p style={{ color: "var(--c-muted)", fontSize: 14, maxWidth: 260, lineHeight: 1.7 }}>we build Modern & premium websites and mobile apps to help business grow faster.</p>
+
+          {/* LINKS */}
+          {[
+            ["Product", ["Services", "Pricing", "Work", "Process"]],
+            ["Company", ["About", "Blog", "Contact", "Testimonials"]],
+            ["Legal", ["Privacy", "Terms", "Security", "GDPR"]],
+          ].map(([group, items]) => {
+            const routeMap = {
+              Services: "/services",
+              Pricing: "/pricing",
+              Work: "/testimonials",
+              Process: "/process",
+              About: "/about",
+              Blog: "/blog",
+              Contact: "/contact",
+              Testimonials: "/testimonials",
+              Privacy: "/privacy",
+              Terms: "/terms",
+              Security: "/security",
+              GDPR: "/privacy",
+            };
+
+            return (
+              <div key={group}>
+                <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, letterSpacing: "0.05em", marginBottom: 16 }}>
+                  {group}
+                </div>
+
+                {items.map((item) => (
+                  <a
+                    key={item}
+                    href={routeMap[item] || "#"}
+                    style={{
+                      display: "block",
+                      color: "var(--c-muted)",
+                      textDecoration: "none",
+                      fontSize: 14,
+                      marginBottom: 10,
+                      transition: "color 0.2s"
+                    }}
+                    onMouseEnter={(e) => (e.target.style.color = "white")}
+                    onMouseLeave={(e) => (e.target.style.color = "var(--c-muted)")}
+                  >
+                    {item}
+                  </a>
+                ))}
+              </div>
+            );
+          })}
         </div>
-        {[
-          ["Product", ["Features", "Pricing", "Changelog", "Roadmap"]],
-          ["Company", ["About", "Blog", "Careers", "Press"]],
-          ["Legal", ["Privacy", "Terms", "Security", "GDPR"]],
-        ].map(([group, items]) => (
-          <div key={group}>
-            <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, letterSpacing: "0.05em", marginBottom: 16 }}>{group}</div>
-            {items.map(item => (
-              <a key={item} href="#" style={{ display: "block", color: "var(--c-muted)", textDecoration: "none", fontSize: 14, marginBottom: 10, transition: "color 0.2s" }}
-                onMouseEnter={e => e.target.style.color = "white"} onMouseLeave={e => e.target.style.color = "var(--c-muted)"}>{item}</a>
+
+        {/* BOTTOM */}
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 28, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
+          
+          <span style={{ color: "var(--c-muted)", fontSize: 13 }}>
+            © 2026 LaunchStack. All rights reserved.
+          </span>
+
+          <div style={{ display: "flex", gap: 20 }}>
+            {[
+              { name: "Instagram", link: "https://instagram.com/launchstack.in" },
+              { name: "Email", link: "https://mail.google.com/mail/?view=cm&fs=1&to=launchstack.in@gmail.com&su=Project%20Inquiry" },
+              { name: "Privacy", link: "/privacy" }
+            ].map((s) => (
+              <a
+                key={s.name}
+                href={s.link}
+                style={{ color: "var(--c-muted)", textDecoration: "none", fontSize: 13 }}
+                onMouseEnter={(e) => (e.target.style.color = "white")}
+                onMouseLeave={(e) => (e.target.style.color = "var(--c-muted)")}
+              >
+                {s.name}
+              </a>
             ))}
           </div>
-        ))}
-      </div>
-      <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 28, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
-        <span style={{ color: "var(--c-muted)", fontSize: 13 }}>© 2026 LaunchStack. All rights reserved.</span>
-        <div style={{ display: "flex", gap: 20 }}>
-       {[
-  { name: "Instagram", link: "https://instagram.com/launchstack.in" },
-  { name: "Email", link: "https://mail.google.com/mail/?view=cm&fs=1&to=launchstack.in@gmail.com&su=Project%20Inquiry" }
-].map(s => (
-  <a
-    key={s.name}
-    href={s.link}
-    style={{ color: "var(--c-muted)", textDecoration: "none", fontSize: 13 }}
-    onMouseEnter={e => e.target.style.color = "white"}
-    onMouseLeave={e => e.target.style.color = "var(--c-muted)"}
-  >
-    {s.name}
-  </a>
 
-          ))}
         </div>
       </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};
 
 // ── App ────────────────────────────────────────────────────────────────────
 export default function App() {
   return (
-    <>
+    <BrowserRouter>
       <FontLink />
       <Noise />
       <Nav />
-      <main>
-        <Hero />
-        <Services />
-        <Projects />
-        <Pricing />
-        <Testimonials />
-        <Contact />
-      </main>
+
+      <Routes>
+
+        {/* HOME PAGE */}
+        <Route
+          path="/"
+          element={
+            <main>
+              <Hero />
+              <Services />
+              <Projects />
+              <Pricing />
+              <Testimonials />
+              <Contact />
+            </main>
+          }
+        />
+
+        {/* BLOG PAGE */}
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<SingleBlog />} />
+
+        {/* BUSINESS PAGES */}
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/process" element={<ProcessPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/testimonials" element={<TestimonialsPage />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/security" element={<Security />} />
+      </Routes>
+
       <Footer />
-    </>
+    </BrowserRouter>
   );
 }
